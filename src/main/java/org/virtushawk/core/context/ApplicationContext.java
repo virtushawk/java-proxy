@@ -12,10 +12,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Simple application context to achieve dynamic proxy injection
+ */
 public class ApplicationContext {
 
     private final Set<Class<?>> componentBeans;
 
+    /**
+     * Instantiates a new Application context and finds classes that should be considered as beans using provided class
+     * package
+     *
+     * @param applicationClass the application class
+     */
     public ApplicationContext(Class<?> applicationClass) {
         Reflections reflections = new Reflections(applicationClass.getPackage().getName());
         this.componentBeans = reflections.getTypesAnnotatedWith(Component.class).stream()
@@ -23,6 +32,12 @@ public class ApplicationContext {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Gets bean using provided Interface. Argument must be an interface or {@link IllegalArgumentException} will be thrown
+     *
+     * @param clazz the interface
+     * @return the bean
+     */
     public <T> T getBean(Class<T> clazz) {
         if (!clazz.isInterface()) {
             throw new IllegalArgumentException("Class " + clazz.getName() + " should be an interface");

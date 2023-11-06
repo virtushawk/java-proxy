@@ -7,6 +7,10 @@ import org.virtushawk.core.annotation.LogMethodName;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ * Simple dynamic proxy handler that shows the example of the proxy handling.
+ * Will react only to methods annotated with the {@link LogMethodName} and log
+ */
 public class DynamicProxyHandler implements InvocationHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(DynamicProxyHandler.class);
